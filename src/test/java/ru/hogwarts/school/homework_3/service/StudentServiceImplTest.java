@@ -2,7 +2,9 @@ package ru.hogwarts.school.homework_3.service;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import ru.hogwarts.school.homework_3.model.Student;
+import ru.hogwarts.school.homework_3.repository.StudentRepository;
 import ru.hogwarts.school.homework_3.service.impl.StudentServiceImpl;
 
 import java.util.*;
@@ -11,11 +13,17 @@ import static ru.hogwarts.school.homework_3.constant.StudentServiceTestConstants
 
 public class StudentServiceImplTest {
 
-    private final StudentServiceImpl studentServiceImplTest = new StudentServiceImpl();
+    @Autowired
+    private final StudentRepository studentRepository;
+
+    public StudentServiceImplTest(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
+    }
 
     @Test
     public void shouldCreateCorrect() {
 //        Подготовка
+        final StudentServiceImpl studentServiceImplTest = new StudentServiceImpl(studentRepository);
         Student student1 = new Student(1L, STUDENT1_NAME, STUDENT1_AGE);
 //        Выполнение
         Assertions.assertEquals(student1, studentServiceImplTest.create(student1));
@@ -24,6 +32,7 @@ public class StudentServiceImplTest {
     @Test
     public void shouldReadCorrect() {
 //        Подготовка
+        final StudentServiceImpl studentServiceImplTest = new StudentServiceImpl(studentRepository);
         Student student1 = new Student(1L, STUDENT1_NAME, STUDENT1_AGE);
         studentServiceImplTest.create(student1);
 //        Выполнение
@@ -33,6 +42,7 @@ public class StudentServiceImplTest {
     @Test
     public void shouldReadAllCorrect() {
 //        Подготовка
+        final StudentServiceImpl studentServiceImplTest = new StudentServiceImpl(studentRepository);
         Student student1 = new Student(1L, STUDENT1_NAME, STUDENT1_AGE);
         Student student2 = new Student(1L, STUDENT2_NAME, STUDENT2_AGE);
         Student student3 = new Student(1L, STUDENT3_NAME, STUDENT3_AGE);
@@ -56,6 +66,7 @@ public class StudentServiceImplTest {
     @Test
     public void shouldReadByAgeCorrect() {
 //        Подготовка
+        final StudentServiceImpl studentServiceImplTest = new StudentServiceImpl(studentRepository);
         Student student1 = new Student(1L, STUDENT1_NAME, STUDENT1_AGE);
         Student student2 = new Student(1L, STUDENT2_NAME, STUDENT2_AGE);
         Student student3 = new Student(1L, STUDENT3_NAME, STUDENT3_AGE);
@@ -76,6 +87,7 @@ public class StudentServiceImplTest {
     @Test
     public void shouldUpdateCorrect() {
 //        Подготовка
+        final StudentServiceImpl studentServiceImplTest = new StudentServiceImpl(studentRepository);
         Student student1 = new Student(1L, STUDENT1_NAME, STUDENT1_AGE);
         Student student2 = new Student(1L, STUDENT2_NAME, STUDENT2_AGE);
         Student student3 = new Student(1L, STUDENT3_NAME, STUDENT3_AGE);
@@ -83,12 +95,13 @@ public class StudentServiceImplTest {
         studentServiceImplTest.create(student2);
         studentServiceImplTest.create(student3);
 //        Выполнение
-        Assertions.assertEquals(student2, studentServiceImplTest.update(2L, student2));
+        Assertions.assertEquals(student2, studentServiceImplTest.update(student2));
     }
 
     @Test
     public void shouldDeleteCorrect() {
 //        Подготовка
+        final StudentServiceImpl studentServiceImplTest = new StudentServiceImpl(studentRepository);
         Student student1 = new Student(1L, STUDENT1_NAME, STUDENT1_AGE);
         Student student2 = new Student(1L, STUDENT2_NAME, STUDENT2_AGE);
         Student student3 = new Student(1L, STUDENT3_NAME, STUDENT3_AGE);
@@ -96,7 +109,8 @@ public class StudentServiceImplTest {
         studentServiceImplTest.create(student2);
         studentServiceImplTest.create(student3);
 //        Выполнение
-        Assertions.assertEquals(student2, studentServiceImplTest.delete(2L));
+        studentServiceImplTest.delete(2L);
+        Assertions.assertEquals(student1, studentServiceImplTest.read(2L));
     }
 
 }

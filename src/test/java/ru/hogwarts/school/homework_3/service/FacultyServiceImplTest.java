@@ -3,6 +3,7 @@ package ru.hogwarts.school.homework_3.service;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import ru.hogwarts.school.homework_3.model.Faculty;
+import ru.hogwarts.school.homework_3.repository.FacultyRepository;
 import ru.hogwarts.school.homework_3.service.impl.FacultyServiceImpl;
 
 import java.util.ArrayList;
@@ -12,11 +13,17 @@ import static ru.hogwarts.school.homework_3.constant.FacultyServiceTestConstants
 
 public class FacultyServiceImplTest {
 
-    private final FacultyServiceImpl facultyServiceImplTest = new FacultyServiceImpl();
+    private final FacultyRepository facultyRepository;
+
+    public FacultyServiceImplTest(FacultyRepository facultyRepository) {
+        this.facultyRepository = facultyRepository;
+    }
 
     @Test
     public void shouldCreateCorrect() {
 //        Подготовка
+        FacultyServiceImpl facultyServiceImplTest = new FacultyServiceImpl(facultyRepository);
+
         Faculty faculty1 = new Faculty(1L, FACULTY1_NAME, FACULTY1_COLOR);
 //        Выполнение
         Assertions.assertEquals(faculty1, facultyServiceImplTest.create(faculty1));
@@ -25,6 +32,7 @@ public class FacultyServiceImplTest {
     @Test
     public void shouldReadCorrect() {
 //        Подготовка
+        final FacultyServiceImpl facultyServiceImplTest = new FacultyServiceImpl(facultyRepository);
         Faculty faculty1 = new Faculty(1L, FACULTY1_NAME, FACULTY1_COLOR);
         facultyServiceImplTest.create(faculty1);
 //        Выполнение
@@ -34,6 +42,7 @@ public class FacultyServiceImplTest {
     @Test
     public void shouldReadAllCorrect() {
 //        Подготовка
+        final FacultyServiceImpl facultyServiceImplTest = new FacultyServiceImpl(facultyRepository);
         Faculty faculty1 = new Faculty(1L, FACULTY1_NAME, FACULTY1_COLOR);
         Faculty faculty2 = new Faculty(1L, FACULTY2_NAME, FACULTY1_COLOR);
         Faculty faculty3 = new Faculty(1L, FACULTY3_NAME, FACULTY1_COLOR);
@@ -57,6 +66,7 @@ public class FacultyServiceImplTest {
     @Test
     public void shouldReadByColorCorrect() {
 //        Подготовка
+        final FacultyServiceImpl facultyServiceImplTest = new FacultyServiceImpl(facultyRepository);
         Faculty faculty1 = new Faculty(1L, FACULTY1_NAME, FACULTY1_COLOR);
         Faculty faculty2 = new Faculty(1L, FACULTY2_NAME, FACULTY2_COLOR);
         Faculty faculty3 = new Faculty(1L, FACULTY3_NAME, FACULTY3_COLOR);
@@ -77,6 +87,7 @@ public class FacultyServiceImplTest {
     @Test
     public void shouldUpdateCorrect() {
 //        Подготовка
+        final FacultyServiceImpl facultyServiceImplTest = new FacultyServiceImpl(facultyRepository);
         Faculty faculty1 = new Faculty(1L, FACULTY1_NAME, FACULTY1_COLOR);
         Faculty faculty2 = new Faculty(1L, FACULTY2_NAME, FACULTY2_COLOR);
         Faculty faculty3 = new Faculty(1L, FACULTY3_NAME, FACULTY3_COLOR);
@@ -84,12 +95,13 @@ public class FacultyServiceImplTest {
         facultyServiceImplTest.create(faculty2);
         facultyServiceImplTest.create(faculty3);
 //        Выполнение
-        Assertions.assertEquals(faculty2, facultyServiceImplTest.update(2L, faculty2));
+        Assertions.assertEquals(faculty2, facultyServiceImplTest.update(faculty2));
     }
 
     @Test
     public void shouldDeleteCorrect() {
 //        Подготовка
+        final FacultyServiceImpl facultyServiceImplTest = new FacultyServiceImpl(facultyRepository);
         Faculty faculty1 = new Faculty(1L, FACULTY1_NAME, FACULTY1_COLOR);
         Faculty faculty2 = new Faculty(1L, FACULTY2_NAME, FACULTY2_COLOR);
         Faculty faculty3 = new Faculty(1L, FACULTY3_NAME, FACULTY3_COLOR);
@@ -97,7 +109,8 @@ public class FacultyServiceImplTest {
         facultyServiceImplTest.create(faculty2);
         facultyServiceImplTest.create(faculty3);
 //        Выполнение
-        Assertions.assertEquals(faculty2, facultyServiceImplTest.delete(2L));
+        facultyServiceImplTest.delete(2L);
+        Assertions.assertNull(facultyServiceImplTest.read(2L));
     }
 
 }

@@ -3,17 +3,19 @@ package ru.hogwarts.school.homework_3.service.impl;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.homework_3.model.Student;
+import ru.hogwarts.school.homework_3.repository.StudentRepository;
 import ru.hogwarts.school.homework_3.service.StudentService;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class StudentServiceImpl implements StudentService {
 
-    private Map<Long, Student> studentMap = new HashMap<>();
-    private Long studentMapId = 0L;
+    private final StudentRepository studentRepository;
+
+    public StudentServiceImpl(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
+    }
 
     @PostConstruct
     public void init() {
@@ -26,20 +28,18 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student create(Student student) {
-        student.setId(++studentMapId);
-        studentMap.put(studentMapId, student);
-        return student;
+        return studentRepository.save(student);
     }
 
     @Override
     public List<Student> readAll() {
-        return studentMap.values()
+        return studentRepository.findAll()
                 .stream().toList();
     }
 
     @Override
     public List<Student> readByAge(int age) {
-        return studentMap.values()
+        return studentRepository.findAll()
                 .stream()
                 .filter(student -> student.getAge() == age)
                 .toList();
@@ -47,21 +47,17 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student read(Long id) {
-        return studentMap.get(id);
+        return studentRepository.findById(id).get();
     }
 
     @Override
-    public Student update(Long id, Student student) {
-        if (!studentMap.containsKey(id)) {
-            return null;
-        }
-        studentMap.put(id, student);
-        return student;
+    public Student update(Student student) {
+        return studentRepository.save(student);
     }
 
     @Override
-    public Student delete(Long id) {
-        return studentMap.remove(id);
+    public void delete(Long id) {
+        studentRepository.deleteById(id);
     }
 
 }

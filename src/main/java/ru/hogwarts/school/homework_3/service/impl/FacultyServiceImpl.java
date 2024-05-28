@@ -3,17 +3,19 @@ package ru.hogwarts.school.homework_3.service.impl;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.homework_3.model.Faculty;
+import ru.hogwarts.school.homework_3.repository.FacultyRepository;
 import ru.hogwarts.school.homework_3.service.FacultyService;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class FacultyServiceImpl implements FacultyService {
 
-    private Map<Long, Faculty> facultyMap = new HashMap<>();
-    private Long facultyMapId = 0L;
+    private final FacultyRepository facultyRepository;
+
+    public FacultyServiceImpl(FacultyRepository facultyRepository) {
+        this.facultyRepository = facultyRepository;
+    }
 
     @PostConstruct
     public void init() {
@@ -26,20 +28,18 @@ public class FacultyServiceImpl implements FacultyService {
 
     @Override
     public Faculty create(Faculty faculty) {
-        faculty.setId(++facultyMapId);
-        facultyMap.put(facultyMapId, faculty);
-        return faculty;
+        return facultyRepository.save(faculty);
     }
 
     @Override
     public List<Faculty> readAll() {
-        return facultyMap.values()
+        return facultyRepository.findAll()
                 .stream().toList();
     }
 
     @Override
     public List<Faculty> readByColor(String color) {
-        return facultyMap.values()
+        return facultyRepository.findAll()
                 .stream()
                 .filter(faculty -> faculty.getColor().equals(color))
                 .toList();
@@ -47,21 +47,17 @@ public class FacultyServiceImpl implements FacultyService {
 
     @Override
     public Faculty read(Long id) {
-        return facultyMap.get(id);
+        return facultyRepository.findById(id).get();
     }
 
     @Override
-    public Faculty update(Long id, Faculty faculty) {
-        if (!facultyMap.containsKey(id)) {
-            return null;
-        }
-        facultyMap.put(id, faculty);
-        return faculty;
+    public Faculty update(Faculty faculty) {
+        return facultyRepository.save(faculty);
     }
 
     @Override
-    public Faculty delete(Long id) {
-        return facultyMap.remove(id);
+    public void delete(Long id) {
+        facultyRepository.deleteById(id);
     }
 
 }
