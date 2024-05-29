@@ -14,8 +14,8 @@ public interface FacultyService {
 
     Faculty read(Long id);
 
-    Faculty update(Long id, Faculty faculty);
+    Faculty update(Faculty faculty);
 
-    Faculty delete(Long id);
+    void delete(Long id);
 
 }

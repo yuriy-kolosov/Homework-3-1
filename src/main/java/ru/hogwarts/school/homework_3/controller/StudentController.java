@@ -53,7 +53,7 @@ public class StudentController {
 
     @PutMapping()
     public ResponseEntity<Student> updateStudent(@RequestBody Student student) {
-        Student updatedStudent = studentService.update(student.getId(), student);
+        Student updatedStudent = studentService.update(student);
         if (updatedStudent == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
@@ -61,12 +61,9 @@ public class StudentController {
     }
 
     @DeleteMapping("/{studentId}")
-    public ResponseEntity<Student> deleteStudent(@PathVariable Long studentId) {
-        Student student = studentService.delete(studentId);
-        if (student == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(student);
+    public ResponseEntity deleteStudent(@PathVariable Long studentId) {
+        studentService.delete(studentId);
+        return ResponseEntity.ok().build();
     }
 
 }
