@@ -2,11 +2,14 @@ package ru.hogwarts.school.homework_3.service.impl;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
+import ru.hogwarts.school.homework_3.model.Faculty;
 import ru.hogwarts.school.homework_3.model.Student;
 import ru.hogwarts.school.homework_3.repository.StudentRepository;
 import ru.hogwarts.school.homework_3.service.StudentService;
 
 import java.util.List;
+
+import static java.util.stream.Collectors.toList;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -19,11 +22,16 @@ public class StudentServiceImpl implements StudentService {
 
     @PostConstruct
     public void init() {
-        create(new Student("Ivan", 20));
+        create(new Student("Ivan", 17));
         create(new Student("Petr", 22));
         create(new Student("Sidor", 20));
         create(new Student("Egor", 23));
-        create(new Student("Kirill", 22));
+        create(new Student("Fedor", 21));
+        create(new Student("Pavel", 19));
+        create(new Student("Victor", 18));
+        create(new Student("Kirill", 21));
+        create(new Student("Semen", 23));
+        create(new Student("Denis", 22));
     }
 
     @Override
@@ -46,8 +54,19 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public List<Student> readByAgeBetween(int minAge, int maxAge) {
+        return studentRepository.findByAgeBetween(minAge, maxAge);
+    }
+
+    @Override
     public Student read(Long id) {
         return studentRepository.findById(id).get();
+    }
+
+    @Override
+    public Faculty readFaculty(Long id) {
+        Student student = studentRepository.findById(id).get();
+        return student.getFaculty();
     }
 
     @Override
