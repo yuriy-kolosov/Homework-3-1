@@ -47,7 +47,7 @@ public class StudentController {
     public ResponseEntity<List<Student>> readStudentsByAgeBetween(@RequestParam("minAge") int minAge
             , @RequestParam("maxAge") int maxAge) {
         List<Student> studentsByAgeBetween = studentService.readByAgeBetween(minAge, maxAge);
-        if (studentsByAgeBetween == null) {
+        if (studentsByAgeBetween.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(studentsByAgeBetween);
