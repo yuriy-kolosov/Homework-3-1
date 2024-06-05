@@ -3,6 +3,7 @@ package ru.hogwarts.school.homework_3.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.hogwarts.school.homework_3.model.Faculty;
 import ru.hogwarts.school.homework_3.model.Student;
 import ru.hogwarts.school.homework_3.service.StudentService;
 
@@ -42,6 +43,16 @@ public class StudentController {
         return ResponseEntity.ok(studentsByAge);
     }
 
+    @GetMapping("/age/between")
+    public ResponseEntity<List<Student>> readStudentsByAgeBetween(@RequestParam("minAge") int minAge
+            , @RequestParam("maxAge") int maxAge) {
+        List<Student> studentsByAgeBetween = studentService.readByAgeBetween(minAge, maxAge);
+        if (studentsByAgeBetween == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(studentsByAgeBetween);
+    }
+
     @GetMapping("/{studentId}")
     public ResponseEntity<Student> readStudent(@PathVariable Long studentId) {
         Student student = studentService.read(studentId);
@@ -49,6 +60,15 @@ public class StudentController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(student);
+    }
+
+    @GetMapping("/{studentId}/faculty")
+    public ResponseEntity<Faculty> readStudentFaculty(@PathVariable Long studentId) {
+        Faculty faculty = studentService.readFaculty(studentId);
+        if (faculty == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(faculty);
     }
 
     @PutMapping()
@@ -61,7 +81,7 @@ public class StudentController {
     }
 
     @DeleteMapping("/{studentId}")
-    public ResponseEntity deleteStudent(@PathVariable Long studentId) {
+    public ResponseEntity<Void> deleteStudent(@PathVariable Long studentId) {
         studentService.delete(studentId);
         return ResponseEntity.ok().build();
     }
