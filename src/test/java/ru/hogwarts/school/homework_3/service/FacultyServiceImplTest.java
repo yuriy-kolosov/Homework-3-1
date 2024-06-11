@@ -2,9 +2,7 @@ package ru.hogwarts.school.homework_3.service;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
 import ru.hogwarts.school.homework_3.model.Faculty;
 import ru.hogwarts.school.homework_3.repository.FacultyRepository;
 import ru.hogwarts.school.homework_3.service.impl.FacultyServiceImpl;
@@ -15,7 +13,6 @@ import java.util.Optional;
 
 import static ru.hogwarts.school.homework_3.constant.FacultyServiceTestConstants.*;
 
-@ExtendWith(MockitoExtension.class)
 public class FacultyServiceImplTest {
 
     FacultyRepository facultyRepository = Mockito.mock(FacultyRepository.class);
