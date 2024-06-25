@@ -32,7 +32,7 @@ public class AvatarServiceImpl implements AvatarService {
     }
 
     public void upload(Long studentId, MultipartFile avatarFile) throws IOException {
-        Student student = studentRepository.getById(studentId);
+        Student student = studentRepository.findById(studentId).orElseThrow();
         Path filePath = Path.of(avatarDir, studentId + "." + getExtensions(avatarFile.getOriginalFilename()));
         Files.createDirectories(filePath.getParent());
         Files.deleteIfExists(filePath);
