@@ -28,6 +28,9 @@ public class FacultyControllerTest {
         Assertions.assertThat(facultyController).isNotNull();
     }
 
+    private FacultyControllerTest() {
+    }
+
     @Test
     void postFacultyTest() throws Exception {
         Faculty faculty = new Faculty();

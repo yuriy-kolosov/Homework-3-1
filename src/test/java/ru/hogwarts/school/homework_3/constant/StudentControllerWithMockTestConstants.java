@@ -19,7 +19,17 @@ public class StudentControllerWithMockTestConstants {
     public static final int AGE3 = 22;
 
     public static final Long ID4S = 24L;
-    public static final String NAME4S = "Olga";
+    public static final String NAME4S = "Vera";
     public static final int AGE4 = 19;
+
+    public static final Long ID5S = 25L;
+    public static final String NAME5S = "Irina";
+    public static final int AGE5 = 21;
+
+    public static final int ALL_QUANTITY = 10;
+    public static final int AVERAGE_AGE = 20;
+
+    private StudentControllerWithMockTestConstants() {
+    }
 
 }

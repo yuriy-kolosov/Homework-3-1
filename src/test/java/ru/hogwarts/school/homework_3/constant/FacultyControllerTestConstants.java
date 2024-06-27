@@ -10,4 +10,7 @@ public class FacultyControllerTestConstants {
     public static final String NAME4F = "Technique";
     public static final String COLOR4 = "brown";
 
+    private FacultyControllerTestConstants() {
+    }
+
 }

@@ -17,4 +17,7 @@ public class FacultyServiceTestConstants {
     public static final String FACULTY5_NAME = "Д";
     public static final String FACULTY5_COLOR = "Бежевый";
 
+    private FacultyServiceTestConstants() {
+    }
+
 }

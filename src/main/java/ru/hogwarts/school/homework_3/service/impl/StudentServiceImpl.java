@@ -9,8 +9,6 @@ import ru.hogwarts.school.homework_3.service.StudentService;
 
 import java.util.List;
 
-import static java.util.stream.Collectors.toList;
-
 @Service
 public class StudentServiceImpl implements StudentService {
 
@@ -68,6 +66,21 @@ public class StudentServiceImpl implements StudentService {
     public Faculty readFaculty(Long id) {
         Student student = studentRepository.findById(id).get();
         return student.getFaculty();
+    }
+
+    @Override
+    public int getAllQuantify() {
+        return studentRepository.countAll();
+    }
+
+    @Override
+    public int countAverageAge() {
+        return studentRepository.countAvgAge();
+    }
+
+    @Override
+    public List<Student> getLastFive() {
+        return studentRepository.findLastFive();
     }
 
     @Override

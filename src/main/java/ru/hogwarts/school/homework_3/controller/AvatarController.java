@@ -15,6 +15,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 @RestController
 @RequestMapping("/avatar")
@@ -35,6 +36,13 @@ public class AvatarController {
         return ResponseEntity.status(HttpStatus.OK).headers(headers).body(avatar.getData());
     }
 
+    @GetMapping(value = "/from-db/pages")
+    public ResponseEntity<List<Avatar>> downloadAvatarDataByPages(@RequestParam("pageNumber") int pageNumber
+            , @RequestParam("pageAmount") int pageAmount) {
+        List<Avatar> avatarList = avatarService.findAvatarsByPages(pageNumber, pageAmount);
+        return ResponseEntity.ok(avatarList);
+    }
+
     @GetMapping(value = "/from-file/{studentId}")
     public void downloadAvatarFromFile(@PathVariable Long studentId, HttpServletResponse response) throws IOException {
         Avatar avatar = avatarService.findAvatar(studentId);
@@ -50,7 +58,8 @@ public class AvatarController {
     }
 
     @PostMapping(value = "/{studentId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<String> uploadAvatar(@PathVariable Long studentId, @RequestParam MultipartFile avatar) throws IOException {
+    public ResponseEntity<String> uploadAvatar(@PathVariable Long studentId
+            , @RequestParam MultipartFile avatar) throws IOException {
         avatarService.upload(studentId, avatar);
         return ResponseEntity.ok().build();
     }

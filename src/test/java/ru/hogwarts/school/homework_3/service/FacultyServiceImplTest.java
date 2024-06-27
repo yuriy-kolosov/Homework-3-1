@@ -18,6 +18,9 @@ public class FacultyServiceImplTest {
     FacultyRepository facultyRepository = Mockito.mock(FacultyRepository.class);
     final FacultyServiceImpl facultyServiceImplTest = new FacultyServiceImpl(facultyRepository);
 
+    private FacultyServiceImplTest() {
+    }
+
     @Test
     public void shouldCreateCorrect() {
 //        Подготовка

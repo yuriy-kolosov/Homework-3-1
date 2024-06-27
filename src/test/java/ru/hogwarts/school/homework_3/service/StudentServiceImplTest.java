@@ -16,6 +16,9 @@ public class StudentServiceImplTest {
     StudentRepository studentRepository = Mockito.mock(StudentRepository.class);
     final StudentServiceImpl studentServiceImplTest = new StudentServiceImpl(studentRepository);
 
+    private StudentServiceImplTest() {
+    }
+
     @Test
     public void shouldCreateCorrect() {
 //        Подготовка
