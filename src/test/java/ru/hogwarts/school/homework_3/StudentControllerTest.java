@@ -28,6 +28,9 @@ public class StudentControllerTest {
         Assertions.assertThat(studentController).isNotNull();
     }
 
+    private StudentControllerTest() {
+    }
+
     @Test
     void postStudentTest() throws Exception {
         Student student = new Student();

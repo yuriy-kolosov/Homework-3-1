@@ -71,6 +71,27 @@ public class StudentController {
         return ResponseEntity.ok(faculty);
     }
 
+    @GetMapping("/count")
+    public ResponseEntity<Integer> quantifyAllStudents() {
+        int countAllStudents = studentService.getAllQuantify();
+        return ResponseEntity.ok(countAllStudents);
+    }
+
+    @GetMapping("/count/age/average")
+    public ResponseEntity<Integer> countStudentAverageAge() {
+        int countStudentAvgAge = studentService.countAverageAge();
+        return ResponseEntity.ok(countStudentAvgAge);
+    }
+
+    @GetMapping("/last/5")
+    public ResponseEntity<List<Student>> getLastFiveStudents() {
+        List<Student> lastFiveStudents = studentService.getLastFive();
+        if (lastFiveStudents == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(lastFiveStudents);
+    }
+
     @PutMapping()
     public ResponseEntity<Student> updateStudent(@RequestBody Student student) {
         Student updatedStudent = studentService.update(student);

@@ -18,4 +18,7 @@ public class StudentControllerTestConstants {
     public static final String NAME4S = "Denis";
     public static final int AGE4 = 23;
 
+    private StudentControllerTestConstants() {
+    }
+
 }

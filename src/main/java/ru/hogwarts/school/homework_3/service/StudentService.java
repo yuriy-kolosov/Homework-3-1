@@ -19,6 +19,12 @@ public interface StudentService {
 
     Faculty readFaculty(Long id);
 
+    int getAllQuantify();
+
+    int countAverageAge();
+
+    List<Student> getLastFive();
+
     Student update(Student student);
 
     void delete(Long id);

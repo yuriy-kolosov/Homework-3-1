@@ -1,11 +1,13 @@
 package ru.hogwarts.school.homework_3.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.Arrays;
 import java.util.Objects;
 
 @Entity
+@Table(name = "avatar")
 public class Avatar {
 
     @Id
@@ -16,6 +18,7 @@ public class Avatar {
     private String mediaType;
 
     @Lob
+    @JsonIgnore
     private byte[] data;
 
     @OneToOne
@@ -35,6 +38,16 @@ public class Avatar {
         this.mediaType = mediaType;
         this.student = student;
     }
+
+    public Avatar(Long id, String filePath, Long fileSize, String mediaType, byte[] data, Student student) {
+        this.id = id;
+        this.filePath = filePath;
+        this.fileSize = fileSize;
+        this.mediaType = mediaType;
+        this.data = new byte[10];
+        this.student = student;
+    }
+
 
     public Long getId() {
         return id;

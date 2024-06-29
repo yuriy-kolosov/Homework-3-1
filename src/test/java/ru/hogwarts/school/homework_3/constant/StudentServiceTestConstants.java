@@ -17,4 +17,7 @@ public class StudentServiceTestConstants {
     public static final String STUDENT5_NAME = "Тихон Тихонов";
     public static final int STUDENT5_AGE = 23;
 
+    private StudentServiceTestConstants() {
+    }
+
 }

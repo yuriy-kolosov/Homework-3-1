@@ -14,4 +14,7 @@ public class FacultyControllerWithMockTestConstants {
     public static final String NAME1S = "Anna";
     public static final int AGE1 = 20;
 
+    private FacultyControllerWithMockTestConstants() {
+    }
+
 }

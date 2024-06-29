@@ -59,6 +59,9 @@ public class FacultyControllerWithMockTest {
     @InjectMocks
     private StudentController studentController;
 
+    private FacultyControllerWithMockTest() {
+    }
+
     @Test
     void postFacultyWithMockTest() throws Exception {
 

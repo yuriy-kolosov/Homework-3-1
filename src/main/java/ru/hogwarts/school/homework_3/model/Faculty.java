@@ -1,19 +1,18 @@
 package ru.hogwarts.school.homework_3.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Table(name = "faculty")
 public class Faculty {
 
     @Id
     @GeneratedValue
+    @Column(name = "faculty_id")
     private Long id;
 
     private String name;
