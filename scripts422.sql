@@ -10,10 +10,10 @@ CREATE TABLE driver (
     );
 -- Таблица 2 (тип машины, - бренд и модель вместе образуют уникальную комбинацию)
 CREATE TABLE car_type (
-    brand varchar(50) UNIQUE NOT NULL,
-    model varchar(50) UNIQUE NOT NULL,
+    brand varchar(50) NOT NULL,
+    model varchar(50) NOT NULL,
     price NUMERIC(10, 2) CHECK (price > 0),
-    PRIMARY KEY (brand,model)
+    PRIMARY KEY (brand, model)
     );
 -- Таблица 3 (машина, - с указанием уникального номера, бренда и модели)
 CREATE TABLE car (
