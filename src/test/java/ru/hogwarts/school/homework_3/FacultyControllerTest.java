@@ -23,12 +23,12 @@ public class FacultyControllerTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
+    private FacultyControllerTest() {
+    }
+
     @Test
     void contextLoadsFacultyControllerTest() throws Exception {
         Assertions.assertThat(facultyController).isNotNull();
-    }
-
-    private FacultyControllerTest() {
     }
 
     @Test

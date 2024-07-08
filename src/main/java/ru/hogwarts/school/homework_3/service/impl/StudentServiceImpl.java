@@ -1,6 +1,8 @@
 package ru.hogwarts.school.homework_3.service.impl;
 
 import jakarta.annotation.PostConstruct;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.homework_3.model.Faculty;
 import ru.hogwarts.school.homework_3.model.Student;
@@ -18,8 +20,11 @@ public class StudentServiceImpl implements StudentService {
         this.studentRepository = studentRepository;
     }
 
+    Logger logger = LoggerFactory.getLogger(StudentServiceImpl.class);
+
     @PostConstruct
     public void init() {
+        logger.debug("Next ten \"Create\" student methods for application testing was invoke...");
         create(new Student("Ivan", 17));
         create(new Student("Petr", 22));
         create(new Student("Sidor", 20));
@@ -30,22 +35,30 @@ public class StudentServiceImpl implements StudentService {
         create(new Student("Kirill", 21));
         create(new Student("Semen", 23));
         create(new Student("Denis", 22));
+
+        System.out.println();
+        System.out.println(System.getProperty("java.runtime.version"));
+        System.out.println();
+
     }
 
     @Override
     public Student create(Student student) {
+        logger.info("\"Create\" student method was invoke...");
         student.setId(null);
         return studentRepository.save(student);
     }
 
     @Override
     public List<Student> readAll() {
+        logger.info("\"Read all\" student method was invoke...");
         return studentRepository.findAll()
                 .stream().toList();
     }
 
     @Override
     public List<Student> readByAge(int age) {
+        logger.info("\"Read by age\" student method was invoke...");
         return studentRepository.findAll()
                 .stream()
                 .filter(student -> student.getAge() == age)
@@ -54,42 +67,50 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<Student> readByAgeBetween(int minAge, int maxAge) {
+        logger.info("\"Read by age between\" student method was invoke...");
         return studentRepository.findByAgeBetween(minAge, maxAge);
     }
 
     @Override
     public Student read(Long id) {
+        logger.info("\"Read by ID\" student method was invoke...");
         return studentRepository.findById(id).get();
     }
 
     @Override
     public Faculty readFaculty(Long id) {
+        logger.info("\"Read faculty by ID\" student method was invoke...");
         Student student = studentRepository.findById(id).get();
         return student.getFaculty();
     }
 
     @Override
     public int getAllQuantify() {
+        logger.info("\"Get all quantity\" student method was invoke...");
         return studentRepository.countAll();
     }
 
     @Override
     public int countAverageAge() {
+        logger.info("\"Get average age\" student method was invoke...");
         return studentRepository.countAvgAge();
     }
 
     @Override
     public List<Student> getLastFive() {
+        logger.info("\"Get last five\" student method was invoke...");
         return studentRepository.findLastFive();
     }
 
     @Override
     public Student update(Student student) {
+        logger.info("\"Update\" student method was invoke...");
         return studentRepository.save(student);
     }
 
     @Override
     public void delete(Long id) {
+        logger.info("\"Delete\" student method was invoke...");
         studentRepository.deleteById(id);
     }
 

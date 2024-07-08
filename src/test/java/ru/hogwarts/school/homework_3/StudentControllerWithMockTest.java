@@ -11,17 +11,17 @@ import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import ru.hogwarts.school.homework_3.configuration.ServerPortProperties;
 import ru.hogwarts.school.homework_3.controller.AvatarController;
 import ru.hogwarts.school.homework_3.controller.FacultyController;
+import ru.hogwarts.school.homework_3.controller.InfoController;
 import ru.hogwarts.school.homework_3.controller.StudentController;
 import ru.hogwarts.school.homework_3.model.Faculty;
 import ru.hogwarts.school.homework_3.model.Student;
 import ru.hogwarts.school.homework_3.repository.AvatarRepository;
 import ru.hogwarts.school.homework_3.repository.FacultyRepository;
 import ru.hogwarts.school.homework_3.repository.StudentRepository;
-import ru.hogwarts.school.homework_3.service.impl.AvatarServiceImpl;
-import ru.hogwarts.school.homework_3.service.impl.FacultyServiceImpl;
-import ru.hogwarts.school.homework_3.service.impl.StudentServiceImpl;
+import ru.hogwarts.school.homework_3.service.impl.*;
 
 import static ru.hogwarts.school.homework_3.constant.StudentControllerWithMockTestConstants.*;
 
@@ -52,6 +52,13 @@ public class StudentControllerWithMockTest {
     private FacultyServiceImpl facultyServiceImpl;
     @InjectMocks
     private FacultyController facultyController;
+
+    @MockBean
+    private ServerPortProperties serverPortProperties;
+    @SpyBean
+    private ServerServiceImpl serverServiceImpl;
+    @InjectMocks
+    private InfoController infoController;
 
     @MockBean
     private StudentRepository studentRepository;
