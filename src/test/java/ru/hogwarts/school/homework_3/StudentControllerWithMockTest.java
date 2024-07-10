@@ -53,6 +53,8 @@ public class StudentControllerWithMockTest {
     @InjectMocks
     private FacultyController facultyController;
 
+    @SpyBean
+    private InfoServiceImpl infoServiceImpl;
     @MockBean
     private ServerPortProperties serverPortProperties;
     @SpyBean
@@ -259,12 +261,37 @@ public class StudentControllerWithMockTest {
     }
 
     @Test
-    void countStudentAverageAgeWithMockTest() throws Exception {
+    void countStudentAverageAgeWithMockTest1() throws Exception {
 
         when(studentRepository.countAvgAge()).thenReturn(AVERAGE_AGE);
 
         mockMvc.perform(MockMvcRequestBuilders
-                        .get("/student/count/age/average"))
+                        .get("/student/count/age/average/method1"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(String.valueOf(AVERAGE_AGE)));
+
+    }
+
+    @Test
+    void countStudentAverageAgeWithMockTest2() throws Exception {
+
+        Student student1 = new Student(ID1S, NAME1S, AGE1);
+        Student student2 = new Student(ID2S, NAME2S, AGE2);
+        Student student3 = new Student(ID3S, NAME3S, AGE3);
+        Student student4 = new Student(ID4S, NAME4S, AGE4);
+        Student student5 = new Student(ID5S, NAME5S, AGE5);
+
+        List<Student> students = new ArrayList<>();
+        students.add(student1);
+        students.add(student2);
+        students.add(student3);
+        students.add(student4);
+        students.add(student5);
+
+        when(studentRepository.findAll()).thenReturn(students);
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get("/student/count/age/average/method2"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(String.valueOf(AVERAGE_AGE)));
 
@@ -326,6 +353,35 @@ public class StudentControllerWithMockTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().json(studentsJsonArray.toString()));
+
+    }
+
+    @Test
+    void getStudentsNamesStartingWithAWithMockTest() throws Exception {
+
+        Student student1 = new Student(ID1S, NAME1S, AGE1);
+        Student student2 = new Student(ID2S, NAME2S, AGE2);
+        Student student3 = new Student(ID3S, NAME3S, AGE3);
+        Student student4 = new Student(ID4S, NAME4S, AGE4);
+        Student student5 = new Student(ID5S, NAME5S, AGE5);
+
+        List<Student> students = new ArrayList<>();
+        students.add(student5);
+        students.add(student4);
+        students.add(student3);
+        students.add(student2);
+        students.add(student1);
+
+        List<String> name = List.of(NAME1S_UPCASE);
+
+        when(studentRepository.findAll()).thenReturn(students);
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get("/student/names/A")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().string(name.toString()));
 
     }
 

@@ -46,6 +46,15 @@ public class FacultyController {
         return ResponseEntity.ok(faculty);
     }
 
+    @GetMapping("/long-name")
+    public ResponseEntity<String> readFacultyLongName() {
+        String longName = facultyService.readLongName();
+        if (longName == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(longName);
+    }
+
     @GetMapping("/{facultyId}/students")
     public ResponseEntity<List<Student>> readStudentsByFaculty(@PathVariable Long facultyId) {
         List<Student> students = facultyService.readStudents(facultyId);

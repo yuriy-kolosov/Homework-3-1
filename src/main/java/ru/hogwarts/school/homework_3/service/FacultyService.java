@@ -3,6 +3,7 @@ package ru.hogwarts.school.homework_3.service;
 import ru.hogwarts.school.homework_3.model.Faculty;
 import ru.hogwarts.school.homework_3.model.Student;
 
+import javax.management.InstanceNotFoundException;
 import java.util.List;
 
 public interface FacultyService {
@@ -16,6 +17,8 @@ public interface FacultyService {
     List<Faculty> readByColor(String color);
 
     Faculty read(Long id);
+
+    String readLongName();
 
     List<Student> readStudents(Long id);
 

@@ -21,10 +21,7 @@ import ru.hogwarts.school.homework_3.model.Student;
 import ru.hogwarts.school.homework_3.repository.AvatarRepository;
 import ru.hogwarts.school.homework_3.repository.FacultyRepository;
 import ru.hogwarts.school.homework_3.repository.StudentRepository;
-import ru.hogwarts.school.homework_3.service.impl.AvatarServiceImpl;
-import ru.hogwarts.school.homework_3.service.impl.FacultyServiceImpl;
-import ru.hogwarts.school.homework_3.service.impl.ServerServiceImpl;
-import ru.hogwarts.school.homework_3.service.impl.StudentServiceImpl;
+import ru.hogwarts.school.homework_3.service.impl.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +52,8 @@ public class FacultyControllerWithMockTest {
     @InjectMocks
     private FacultyController facultyController;
 
+    @SpyBean
+    private InfoServiceImpl infoServiceImpl;
     @MockBean
     private ServerPortProperties serverPortProperties;
     @SpyBean
@@ -189,6 +188,27 @@ public class FacultyControllerWithMockTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().json(studentsJsonArray.toString()));
+
+    }
+
+    @Test
+    void getFacultyLongNameWithMockTest() throws Exception {
+
+        Faculty faculty1 = new Faculty(ID1F, NAME1F, COLOR1);
+        Faculty faculty2 = new Faculty(ID2F, NAME2F, COLOR2);
+
+        List<Faculty> faculties = new ArrayList<>();
+        faculties.add(faculty1);
+        faculties.add(faculty2);
+
+        when(facultyRepository.findAll()).thenReturn(faculties);
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get("/faculty/long-name")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().string(NAME1F));
 
     }
 
