@@ -122,4 +122,16 @@ public class StudentController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/print-parallel")
+    public ResponseEntity<Void> print6StudentsParallel() {
+        studentService.print6Parallel();
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/print-synchronized")
+    public ResponseEntity<Void> print6ParallelSynchronized() {
+        studentService.print6Synchronized();
+        return ResponseEntity.ok().build();
+    }
+
 }

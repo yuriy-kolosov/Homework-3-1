@@ -141,4 +141,72 @@ public class StudentServiceImpl implements StudentService {
         studentRepository.deleteById(id);
     }
 
+    @Override
+    public void print6Parallel() {
+        logger.info("\"Print parallel 6\" students method was invoke...");
+
+        List<Student> students = readAll();
+        Student student1 = students.get(0);
+        Student student2 = students.get(1);
+        Student student3 = students.get(2);
+        Student student4 = students.get(3);
+        Student student5 = students.get(4);
+        Student student6 = students.get(5);
+
+        printToConsole(student1.getId(), student1.getName());
+        printToConsole(student2.getId(), student2.getName());
+
+        new Thread(() -> {
+            printToConsole(student3.getId(), student3.getName());
+            printToConsole(student4.getId(), student4.getName());
+        }, "Thread2 parallel").start();
+
+        new Thread(() -> {
+            printToConsole(student5.getId(), student5.getName());
+            printToConsole(student6.getId(), student6.getName());
+        }, "Thread3 parallel").start();
+
+    }
+
+    @Override
+    public void print6Synchronized() {
+        logger.info("\"Print synchronized 6\" students method was invoke...");
+
+        List<Student> students = readAll();
+        Student student1 = students.get(0);
+        Student student2 = students.get(1);
+        Student student3 = students.get(2);
+        Student student4 = students.get(3);
+        Student student5 = students.get(4);
+        Student student6 = students.get(5);
+
+        Object flag1 = new Object();
+        Object flag2 = new Object();
+        Object flag3 = new Object();
+
+        synchronized (flag1) {
+            printToConsole(student1.getId(), student1.getName());
+            printToConsole(student2.getId(), student2.getName());
+        }
+
+        new Thread(() -> {
+            synchronized (flag2) {
+                printToConsole(student3.getId(), student3.getName());
+                printToConsole(student4.getId(), student4.getName());
+            }
+        }, "Thread2 synchronized").start();
+
+        new Thread(() -> {
+            synchronized (flag3) {
+                printToConsole(student5.getId(), student5.getName());
+                printToConsole(student6.getId(), student6.getName());
+            }
+        }, "Thread3 synchronized").start();
+
+    }
+
+    private void printToConsole(long id, String name) {
+        System.out.println("Student " + name + ", id " + id);
+    }
+
 }

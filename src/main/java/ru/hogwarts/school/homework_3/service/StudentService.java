@@ -33,4 +33,8 @@ public interface StudentService {
 
     void delete(Long id);
 
+    void print6Parallel();
+
+    void print6Synchronized();
+
 }
