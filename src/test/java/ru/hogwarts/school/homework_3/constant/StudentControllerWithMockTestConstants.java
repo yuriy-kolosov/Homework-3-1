@@ -8,6 +8,7 @@ public class StudentControllerWithMockTestConstants {
 
     public static final Long ID1S = 21L;
     public static final String NAME1S = "Anna";
+    public static final String NAME1S_UPCASE = "\"ANNA\"";
     public static final int AGE1 = 20;
 
     public static final Long ID2S = 22L;

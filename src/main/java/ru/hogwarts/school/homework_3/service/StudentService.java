@@ -21,9 +21,13 @@ public interface StudentService {
 
     int getAllQuantify();
 
-    int countAverageAge();
+    int countAverageAgeByMethod1();
+
+    int countAverageAgeByMethod2();
 
     List<Student> getLastFive();
+
+    List<String> getNamesStartingWithA();
 
     Student update(Student student);
 

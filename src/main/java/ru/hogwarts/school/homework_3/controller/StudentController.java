@@ -77,9 +77,15 @@ public class StudentController {
         return ResponseEntity.ok(countAllStudents);
     }
 
-    @GetMapping("/count/age/average")
-    public ResponseEntity<Integer> countStudentAverageAge() {
-        int countStudentAvgAge = studentService.countAverageAge();
+    @GetMapping("/count/age/average/method1")
+    public ResponseEntity<Integer> countStudentAverageAgeByMethod1() {
+        int countStudentAvgAge = studentService.countAverageAgeByMethod1();
+        return ResponseEntity.ok(countStudentAvgAge);
+    }
+
+    @GetMapping("/count/age/average/method2")
+    public ResponseEntity<Integer> countStudentAverageAgeByMethod2() {
+        int countStudentAvgAge = studentService.countAverageAgeByMethod2();
         return ResponseEntity.ok(countStudentAvgAge);
     }
 
@@ -90,6 +96,15 @@ public class StudentController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(lastFiveStudents);
+    }
+
+    @GetMapping("/names/A")
+    public ResponseEntity<List<String>> getStudentsNamesStartingWithA() {
+        List<String> namesStartingWithAStudents = studentService.getNamesStartingWithA();
+        if (namesStartingWithAStudents == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(namesStartingWithAStudents);
     }
 
     @PutMapping()

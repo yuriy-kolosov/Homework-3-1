@@ -35,6 +35,8 @@ public class StudentServiceImpl implements StudentService {
         create(new Student("Kirill", 21));
         create(new Student("Semen", 23));
         create(new Student("Denis", 22));
+        create(new Student("Anna", 20));
+        create(new Student("Alexandra", 22));
 
         System.out.println();
         System.out.println(System.getProperty("java.runtime.version"));
@@ -91,15 +93,40 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public int countAverageAge() {
-        logger.info("\"Get average age\" student method was invoke...");
+    public int countAverageAgeByMethod1() {
+        logger.info("\"Get average age\" student method 1 was invoke...");
         return studentRepository.countAvgAge();
+    }
+
+    @Override
+    public int countAverageAgeByMethod2() {
+        logger.info("\"Get average age\" student method 2 was invoke...");
+        int averageAge = 0;
+        int countStudents = (int) studentRepository.findAll().size();
+        int sumStudentsAge = studentRepository.findAll().stream()
+                .map(Student::getAge)
+                .reduce(Integer::sum)
+                .orElse(0);
+        if (countStudents != 0) {
+            averageAge = (int) sumStudentsAge / countStudents;
+        }
+        return averageAge;
     }
 
     @Override
     public List<Student> getLastFive() {
         logger.info("\"Get last five\" student method was invoke...");
         return studentRepository.findLastFive();
+    }
+
+    @Override
+    public List<String> getNamesStartingWithA() {
+        logger.info("\"Get names starting with A\" student method was invoke...");
+        return studentRepository.findAll().stream()
+                .map(Student::getName)
+                .map(String::toUpperCase)
+                .filter(name -> name.startsWith("A"))
+                .toList();
     }
 
     @Override

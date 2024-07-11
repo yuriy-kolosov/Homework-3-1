@@ -17,10 +17,7 @@ import ru.hogwarts.school.homework_3.controller.StudentController;
 import ru.hogwarts.school.homework_3.repository.AvatarRepository;
 import ru.hogwarts.school.homework_3.repository.FacultyRepository;
 import ru.hogwarts.school.homework_3.repository.StudentRepository;
-import ru.hogwarts.school.homework_3.service.impl.AvatarServiceImpl;
-import ru.hogwarts.school.homework_3.service.impl.FacultyServiceImpl;
-import ru.hogwarts.school.homework_3.service.impl.ServerServiceImpl;
-import ru.hogwarts.school.homework_3.service.impl.StudentServiceImpl;
+import ru.hogwarts.school.homework_3.service.impl.*;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -48,19 +45,21 @@ public class InfoControllerWithMockTest {
     @InjectMocks
     private FacultyController facultyController;
 
-    @MockBean
-    private StudentRepository studentRepository;
     @SpyBean
-    private StudentServiceImpl studentServiceImpl;
-    @InjectMocks
-    private StudentController studentController;
-
+    private InfoServiceImpl infoServiceImpl;
     @MockBean
     private ServerPortProperties serverPortProperties;
     @SpyBean
     private ServerServiceImpl serverServiceImpl;
     @InjectMocks
     private InfoController infoController;
+
+    @MockBean
+    private StudentRepository studentRepository;
+    @SpyBean
+    private StudentServiceImpl studentServiceImpl;
+    @InjectMocks
+    private StudentController studentController;
 
     public InfoControllerWithMockTest() {
     }

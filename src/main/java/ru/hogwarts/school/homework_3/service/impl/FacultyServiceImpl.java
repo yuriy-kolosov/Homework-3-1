@@ -9,9 +9,8 @@ import ru.hogwarts.school.homework_3.model.Student;
 import ru.hogwarts.school.homework_3.repository.FacultyRepository;
 import ru.hogwarts.school.homework_3.service.FacultyService;
 
-import java.util.HashSet;
+import java.util.Comparator;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class FacultyServiceImpl implements FacultyService {
@@ -64,6 +63,15 @@ public class FacultyServiceImpl implements FacultyService {
     public Faculty read(Long id) {
         logger.info("\"Read by ID\" faculty method for application testing was invoke...");
         return facultyRepository.findById(id).get();
+    }
+
+    @Override
+    public String readLongName() {
+        logger.info("\"Read long name\" faculty method for application testing was invoke...");
+        return facultyRepository.findAll().stream()
+                .map(Faculty::getName)
+                .max(Comparator.comparingInt(String::length))
+                .orElse("");
     }
 
     @Override
