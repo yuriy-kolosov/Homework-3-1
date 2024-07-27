@@ -20,7 +20,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/avatar")
 public class AvatarController {
-
+    /**
+     * Demo project for learning Spring Boot programming
+     */
     public final AvatarService avatarService;
 
     public AvatarController(AvatarService avatarService) {

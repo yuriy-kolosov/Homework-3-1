@@ -10,7 +10,9 @@ import ru.hogwarts.school.homework_3.service.ServerService;
 @RestController
 @RequestMapping("/port")
 public class InfoController {
-
+    /**
+     * Demo project for learning Spring Boot programming
+     */
     public final InfoService infoService;
     public final ServerService serverService;
 

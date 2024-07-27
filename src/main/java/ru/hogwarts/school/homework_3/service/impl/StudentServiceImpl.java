@@ -180,32 +180,22 @@ public class StudentServiceImpl implements StudentService {
         Student student5 = students.get(4);
         Student student6 = students.get(5);
 
-        Object flag1 = new Object();
-        Object flag2 = new Object();
-        Object flag3 = new Object();
-
-        synchronized (flag1) {
-            printToConsole(student1.getId(), student1.getName());
-            printToConsole(student2.getId(), student2.getName());
-        }
+        printToConsole(student1.getId(), student1.getName());
+        printToConsole(student2.getId(), student2.getName());
 
         new Thread(() -> {
-            synchronized (flag2) {
-                printToConsole(student3.getId(), student3.getName());
-                printToConsole(student4.getId(), student4.getName());
-            }
+            printToConsole(student3.getId(), student3.getName());
+            printToConsole(student4.getId(), student4.getName());
         }, "Thread2 synchronized").start();
 
         new Thread(() -> {
-            synchronized (flag3) {
-                printToConsole(student5.getId(), student5.getName());
-                printToConsole(student6.getId(), student6.getName());
-            }
+            printToConsole(student5.getId(), student5.getName());
+            printToConsole(student6.getId(), student6.getName());
         }, "Thread3 synchronized").start();
 
     }
 
-    private void printToConsole(long id, String name) {
+    private synchronized void printToConsole(long id, String name) {
         System.out.println("Student " + name + ", id " + id);
     }
 
