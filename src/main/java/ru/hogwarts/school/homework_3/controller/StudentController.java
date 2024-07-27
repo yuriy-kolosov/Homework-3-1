@@ -12,7 +12,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/student")
 public class StudentController {
-
+    /**
+     * Demo project for learning Spring Boot programming
+     */
     public final StudentService studentService;
 
     public StudentController(StudentService studentService) {
